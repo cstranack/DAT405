@@ -1,11 +1,13 @@
 
 function setup(){
-  createCanvas(1000,1000);
+  createCanvas(1500,1500);
   frameRate(10);
-  //noStroke();
+
 }
 
 function draw(){
+  //each arrow key is assigned to a different function
+  //each function draws a different shape
   if (keyIsDown(LEFT_ARROW)){
     customShape1();
   }
@@ -16,9 +18,7 @@ function draw(){
     customShape3();
   }
 
-
 }
-
 
 
 function customShape1(){
@@ -27,15 +27,15 @@ function customShape1(){
   let xCoordinate = (random(1000));
   let yCoordinate = (random(1000));
   let size = 100;
-
+  //this shape is a serise of circles inside eachother
   fill(255,255,255);
   ellipse(xCoordinate, yCoordinate, size);
-  fill(0);
+  fill(255,150,200);
   ellipse(xCoordinate, yCoordinate, size - 10);
   fill(255,255,255);
   ellipse(xCoordinate, yCoordinate, size - 20);
   ellipse(xCoordinate, yCoordinate, size - 35);
-  stroke(200,0,200);
+  stroke(255,150,200);
   strokeWeight(5);
   ellipse(xCoordinate, yCoordinate, size - 55);
   stroke(0);
@@ -50,6 +50,7 @@ function customShape2(){
   let xCoordinate = (random(1000));
   let yCoordinate = (random(1000));
   let size = 50;
+  //this shape is a series of squares inside eachother
   fill(0, 200, 255);
   rect(xCoordinate, yCoordinate, size, size);
   fill(200, 200, 255);
@@ -57,19 +58,15 @@ function customShape2(){
   fill(255,255,255);
   rect(xCoordinate+10, yCoordinate+10, size- 20, size- 20);
 
-
-
 }
 
 function customShape3(){
   let xCoordinate = (random(1000));
   let yCoordinate = (random(1000));
+  //this shape is a circle overlapping a triangle
   fill(250, 175, 200);
   ellipse(xCoordinate, yCoordinate, 50);
   fill(75 , 200 , 200);
-  triangle(xCoordinate + 10, yCoordinate + 20, xCoordinate, yCoordinate, xCoordinate -10 , yCoordinate +20);
-  //fill(200,75,200);
+  triangle(xCoordinate + 20, yCoordinate + 30, xCoordinate, yCoordinate, xCoordinate -20 , yCoordinate +30);
 
-  //triangle(xCoordinate + 20, yCoordinate + 30, xCoordinate, yCoordinate, xCoordinate -20 , yCoordinate +30);
-  //triangle(30, 75, 58, 20, 86, 75)
 }
