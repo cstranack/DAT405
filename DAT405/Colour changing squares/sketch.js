@@ -19,6 +19,7 @@ function draw(){
   fill(255,255,0);
   yellowSquare()
 
+
   if (mouseX < 250 && mouseY < 250){
     fill(0,0,0);
     blueSquare()
