@@ -1,35 +1,158 @@
+//CLAIRE STRANACK - creative coding assignment 1
+//declaring my variables
+let angle = 0;
+let angle2 = 0;
+let angle3 = 0;
+let angle4 = 0;
+//changing the value of the angles
+//changes the starting positision of the circles
+let angle5 = 180;
+let angle6 = 180;
+let angle7 = 180;
+let angle8 = 180;
+let backgroundSize = 50;
 
-// Declaring my variables
-//flag has a boolean value that will either be "yes" or "no"
-var flag = "no";
-//these variables have to be declared here but not assigned to a value
-var mouseCoordX;
-var mouseCoordY;
-// these variables determind at what degrees each of the cirles
-//turn around the centre point at each run of the program
-var angle = 0;
-var angle2 = 0;
-var angle3 = 0;
-var angle4 = 0;
-var angle5 = 0;
-
-//initialising the program
+//setting up my canvas and modes
 function setup(){
-  //determining the canvas size, in pixels
-    createCanvas(594,841);
-  //All the shapes will be the same colour untill
-  //told otherwise
-    fill(random(255),0,0,50);
-  //set the frame rate determinds the rate of 'movement'
-    frameRate(15);
+  createCanvas(594,841);
+  angleMode(DEGREES);
+  rectMode(CENTER);
 }
-  //the draw fucntion will be repeated continuously
-  function draw(){
-    //the drawCirles function is being called here
-    drawCirles();
-    drawBorder();
+
+//within the draw function I call all the functions
+//in order for them to be executed
+function draw(){
+//background(255,255,255);
+  drawCircles();
+  drawBorder();
+  drawTracks();
+  drawCircles2();
+  backgroundColour();
+}
+
+//this function draws 2 sets of the rotating cirles
+// that start with angle set to 0
+function drawCircles(){
+  noStroke();
+  //push and pop confine the set translation between the 2 functions
+  push();
+  //here the translate function sets the 0,0 coordinantes
+  //to the centre of the canvas
+  //so every shape with the coordiantes 0,0 will be centeral
+  translate(width/2,height/2);
+  //random colours are generated continuously
+  fill(random(255),random(255),random(255),50);
+  stroke(0);
+  rotate(angle);
+  ellipse(50,50,50,50);
+  //rotating by -angle*2 allows the shapes
+  //to rotate in the opposite direction
+  rotate(-angle*2);
+  ellipse(50,50,50,50);
+  angle = angle + 2;
+  pop();
+
+  push();
+  stroke(0);
+  fill(random(255),random(255),random(255),50);
+  translate(width/2,height/2);
+  rotate(angle2);
+  ellipse(85,85,50,50);
+  rotate(-angle2*2);
+  ellipse(85,85,50,50);
+  angle2 = angle2 + 4;
+  pop();
+
+  push();
+  fill(random(255),random(255),random(255),50);
+  stroke(0);
+  translate(width/2,height/2);
+  rotate(angle3);
+  ellipse(120,120,50,50);
+  rotate(-angle3*2);
+  ellipse(120,120,50,50);
+  angle3 = angle3 + 6;
+  pop();
+
+  push();
+  fill(random(255),random(255),random(255),50);
+  stroke(0);
+  translate(width/2,height/2);
+  rotate(angle4);
+  ellipse(155,155,50,50);
+  rotate(-angle4*2);
+  ellipse(155,155,50,50);
+  angle4 = angle4 + 8;
+  pop();
+
   }
 
+//this function draws 2 sets of the rotating cirles
+// that start with angle set to 180
+function drawCircles2(){
+  noStroke();
+  push();
+  translate(width/2,height/2);
+  fill(random(255),random(255),random(255),50);
+  stroke(0);
+  rotate(angle5);
+  ellipse(50,50,50,50);
+  rotate(-angle5*2);
+  ellipse(50,50,50,50);
+  angle5 = angle5 + 2;
+  pop();
+
+  push();
+  stroke(0);
+  fill(random(255),random(255),random(255),50);
+  translate(width/2,height/2);
+  rotate(angle6);
+  ellipse(85,85,50,50);
+  rotate(-angle6*2);
+  ellipse(85,85,50,50);
+  angle6 = angle6 + 4;
+  pop();
+
+  push();
+  fill(random(255),random(255),random(255),50);
+  stroke(0);
+  translate(width/2,height/2);
+  rotate(angle7);
+  ellipse(120,120,50,50);
+  rotate(-angle7*2);
+  ellipse(120,120,50,50);
+  angle7 = angle7 + 6;
+  pop();
+
+  push();
+  fill(random(255),random(255),random(255),50);
+  stroke(0);
+  translate(width/2,height/2);
+  rotate(angle8);
+  ellipse(155,155,50,50);
+  rotate(-angle8*2);
+  ellipse(155,155,50,50);
+  angle8 = angle8 + 8;
+  pop();
+}
+
+//this function draws the 'tracks' or still circles
+// centred in the middle of the canvas
+  function drawTracks(){
+    push();
+    fill(0,0,0,10);
+    translate(width/2,height/2);
+    ellipse(0,0,50,50)
+    ellipse(0,0,90,90);
+    ellipse(0,0,190,190);
+    ellipse(0,0,290,290);
+    ellipse(0,0,390,390);
+    ellipse(0,0,490,490);
+    pop();
+}
+
+//this function draws a serise of lines
+// which indicate the border of the canvas
 function drawBorder(){
   stroke(100);
   line(0,0,594,0);
@@ -39,96 +162,27 @@ function drawBorder(){
 
 }
 
-function drawCirles(){
-  //TWO_PI is the circumference of a circle
-  //if 'angle'(which is the slowest moving circle)
-  //is smaller than TWO_PI then the circles are
-  //drawn
-    if(angle<TWO_PI){
-      //this part of the program insures the program
-      //has coordiantes
-      if(flag == "no"){
-        mouseCoordX = mouseX;
-        mouseCoordY = mouseY;
-        console.log(mouseCoordX);
-        console.log("yes");
-        flag = "yes";
-        }
+//the function controls the colour changing 'background'
+//the background will change opacity depending on the location
+//of the mouse on the canvas
+function backgroundColour(){
 
+  var mouse = map(mouseY, 0, width, 255, 0);
+  //Two different values are created. The opacity of the background
+  // is controlled by the mouse variable created before
+  var color1 = color(0,0,0,255);
+  var color2 = color(200, 162, 200, mouse);
 
-      else if(flag == "yes"){
-
-        stroke(180);
-        var negXCircleCoord = mouseCoordX - cos(angle2)*50;
-        var negYCircleCoord = mouseCoordY - sin(angle2)*50
-        var posXCircleCoord = mouseCoordX + cos(angle2)*50;
-        var posYCircleCoord = mouseCoordY + sin(angle2)*50;
-        var negXCircleCoord2 = mouseCoordX - cos(angle3)*100;
-        var negYCircleCoord2 = mouseCoordY - sin(angle3)*100;
-        var posXCircleCoord2 = mouseCoordX + cos(angle3)*100;
-        var posYCircleCoord2 = mouseCoordY + sin(angle3)*100;
-        var negXCircleCoord3 = mouseCoordX - cos(angle4)*150;
-        var negYCircleCoord3 = mouseCoordY - sin(angle4)*150;
-        var posXCircleCoord3 = mouseCoordX + cos(angle4)*150;
-        var posYCircleCoord3 = mouseCoordY + sin(angle4)*150;
-        var negXCircleCoord4 = mouseCoordX - cos(angle5)*200;
-        var negYCircleCoord4 = mouseCoordY - sin(angle5)*200;
-        var posXCircleCoord4 = mouseCoordX + cos(angle5)*200;
-        var posYCircleCoord4 = mouseCoordY + sin(angle5)*200;
-
-        background(255,255,255);
-        size = 50
-        fill(random(255),random(255),random(255),20);
-        ellipse(posXCircleCoord,posYCircleCoord,size,size);
-        ellipse(negXCircleCoord,negYCircleCoord,size,size);
-        ellipse(posXCircleCoord2,posYCircleCoord2,size,size);
-        ellipse(negXCircleCoord2,negYCircleCoord2,size,size);
-        ellipse(negXCircleCoord3,negYCircleCoord3,size,size);
-        ellipse(posXCircleCoord3,posYCircleCoord3,size,size);
-        ellipse(negXCircleCoord4,negYCircleCoord4,size,size);
-        ellipse(posXCircleCoord4,posYCircleCoord4,size,size);
-
-        fill(random(255),random(255),random(255),50);
-        ellipse(negXCircleCoord,negYCircleCoord,20,20);
-        ellipse(posXCircleCoord,posYCircleCoord,20,20);
-        ellipse(negXCircleCoord2,negYCircleCoord2,20,20);
-        ellipse(posXCircleCoord2,posYCircleCoord2,20,20);
-        ellipse(negXCircleCoord3,negYCircleCoord3,20,20);
-        ellipse(posXCircleCoord3,posYCircleCoord3,20,20);
-        ellipse(negXCircleCoord4,negYCircleCoord4,20,20);
-        ellipse(posXCircleCoord4,posYCircleCoord4,20,20);
-
-        fill(0,0,0,0);
-        ellipse(mouseCoordX,mouseCoordY, 50,50);
-        ellipse(mouseCoordX,mouseCoordY, 150,150);
-        ellipse(mouseCoordX,mouseCoordY, 250,250);
-        ellipse(mouseCoordX,mouseCoordY, 350,350);
-        ellipse(mouseCoordX,mouseCoordY, 450,450);
-
-        angle = angle + 0.1;
-        angle2 = angle2 + 0.2;
-        angle3 = angle3 + 0.3;
-        angle4 = angle4 + 0.4;
-        angle5 = angle5 + 0.5;
-
-
-        line(0,0, mouseCoordX , mouseCoordY);
-        line(width,height, mouseCoordX , mouseCoordY);
-        line(width,0, mouseCoordX, mouseCoordY);
-        line(0,height, mouseCoordX , mouseCoordY);
-        line(width/2,0, mouseCoordX , mouseCoordY,);
-        line(width/2,height, mouseCoordX , mouseCoordY,);
-        line(0,height/2, mouseCoordX , mouseCoordY,);
-        line(width,height/2, mouseCoordX , mouseCoordY,);
-
-        }
-
+  //The nested loop creates the background, and according to the
+  //position of the mouse the background colour will change opacity
+  for (let y = 0; y < height + 50; y+=backgroundSize) {
+    for (let x = 0; x < width+ 50; x+=backgroundSize) {
+      //checks the coordinates of the mouse in relation to its coordinantes
+      //on the background, this then determinds the inensity of the
+      //background colour
+      if(mouseX>x && mouseX<x && mouseY>y && mouseY<y) fill(color1);
+      else fill(color2);
+      rect(x, y, backgroundSize, backgroundSize);
     }
-
-    else if(angle => TWO_PI){
-      background("clear");
-      angle = 0;
-      mouseCoordX = mouseX;
-      mouseCoordY = mouseY;
-    }
+  }
 }
