@@ -2,22 +2,30 @@
 //WORKING CODE
 //assigning variables
 
-let data;
-let attackFatalData;
-let attackDates;
+let data, attackFatalData, attackDates;
 let apiKey = "d377299c554f35dfbdca7e8ed2bb1182d984fe308075503871c6e752";
 let numberOfCases = "150";
-let year = "2017";
+let year = " ";
 let monthLocation = 150;
 let monthArrayString = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+let monthArrayVariable = []
+let janFatalities = 0;
+let febFatalities = 0;
+let marFatalities = 0;
+let aprFatalities = 0;
+let mayFatalities = 0;
+let junFatalities = 0;
+let julFatalities = 0;
+let augFatalities = 0;
+let sepFatalities = 0;
+let octFatalities = 0;
+let novFatalities = 0;
+let decFatalities = 0;
+let yearFatalities = 0;
 let attackLocation = 600;
 let pointPos = 0;
 let squaresArray = [];
-let inputYear;
-let greeting;
-let header;
-let count;
-let button;
+let inputYear, greeting, header, button, img, img2;
 let jan = 0;
 let feb = 0;
 let mar = 0;
@@ -33,33 +41,25 @@ let dec = 0;
 
 
 function preload(){
-  //loop();
-  //setting up the canvas
-  createCanvas(1000,700);
-  //count = 0
+  //Create and format the title.
   header = createElement("h1", "Shark Attack Graph");
   header.position(10, 10);
-
+  //creating input box, so year can be entered.
   inputYear = createInput();
   inputYear.position(360, 80);
-
+  //this creates the button so the year value enterd can be submitted.
   button = createButton("submit");
   button.position(inputYear.x + inputYear.width, 80);
+  // when a value is entered the data is fetched via the "greet" function
   button.mousePressed(greet);
-
 
   greeting = createElement("h2", "Choose a year from 2012 to 2018: ");
   greeting.position(10, 55);
 
-  //while(year = " "){
-
-  //}
-    if(year > 2018 || year < 2012){
-      console.log("year invalid");
-    }
 
   //once the button is pressed this function is entered.
   function greet() {
+
     year = inputYear.value();
     greeting.html("Year: "+ year);
     inputYear.value(" ");
@@ -68,18 +68,20 @@ function preload(){
     let url = "https://data.opendatasoft.com/api/records/1.0/search/?dataset=global-shark-attack%40public-us&rows=" + numberOfCases + "&sort=date&refine.year=" + year + "&apikey=" + apiKey;
     //retrieving data from JSON file and storing it in variable 'data'.
     data = loadJSON(url);
-    console.log("hello");
-    //return
+    //assigning images to variables to call in setup().
+    img = loadImage('shark.png');
+    img2 = loadImage('shark2.png');
   }
-
 }
 
-
-
-
 function setup() {
+  //setting up the canvas, background and details like images.
+  createCanvas(1500,1500);
+  background(0,100,150,20);
+  image(img, 750, 20);
+  image(img2, 650, 1000);
 
-  //initialising arrays
+  //initialising arrays to be used in setup().
   let attackFatalynArray= [];
   let attackYearArray = [];
   let attackDatesArray = [];
@@ -98,28 +100,20 @@ function setup() {
   let febFatalArray = [];
   let janFatalArray = [];
 
-
-
-  console.log(data);
-  console.log("records: " + data.records);
   //collecting all the data I need for my visulisation
   //assigning the necessary data to arrays
   for(let caseNumber = 0; caseNumber < data.records.length; caseNumber++){
-
     attackFatalData = (data.records[caseNumber].fields.fatal_y_n);
     attackYear = (data.records[caseNumber].fields.year);
     attackDates = (data.records[caseNumber].fields.date);
-
     //appending each value to my arrays
     append(attackFatalynArray, attackFatalData);
     append(attackYearArray, attackYear);
     append(attackDatesArray, attackDates);
-
     //splitting the string up into a temporary array
     //then extracting the month and saving that into a new array
     splitDatesArray = split(attackDatesArray[caseNumber],"-");
     append(attacksPerMonthArray, splitDatesArray[1]);
-
     //sorting number of attacks into the month they occured in
     if(attacksPerMonthArray[caseNumber] == "01"){
       jan = jan + 1
@@ -159,59 +153,107 @@ function setup() {
     }
 
   }
-
-  console.log(attackFatalynArray);
-  //console.log(attackYearArray);
-  //console.log(attackDatesArray);
-  console.log(attacksPerMonthArray);
-  console.log(jan,feb,mar,apr,may,jun,jul,aug,sep,nov,dec);
-
   //Creating arrays for each month from the attack data set
   //I organise the data this was so I now know how many of the attacks where fatal.
-
   decFatalArray = subset(attackFatalynArray,0,dec);
-  console.log("Dec: " + decFatalArray);
   novFatalArray = subset(attackFatalynArray,dec,nov);
-  console.log("Nov: " + novFatalArray);
   octFatalArray = subset(attackFatalynArray,nov,oct);
-  console.log("Oct: " + octFatalArray);
   sepFatalArray = subset(attackFatalynArray,oct,sep);
-  console.log("Sep: " + sepFatalArray);
   augFatalArray = subset(attackFatalynArray,sep,aug);
-  console.log("Aug: " + augFatalArray);
   julFatalArray = subset(attackFatalynArray,aug,jul);
-  console.log("Jul: " + julFatalArray);
   junFatalArray = subset(attackFatalynArray,jul,jun);
-  console.log("Jun: " + junFatalArray);
   mayFatalArray = subset(attackFatalynArray,jun,may);
-  console.log("May: " + mayFatalArray);
   aprFatalArray = subset(attackFatalynArray,may,apr);
-  console.log("Apr: " + aprFatalArray);
   marFatalArray = subset(attackFatalynArray,apr,mar);
-  console.log("Mar: " + marFatalArray);
   febFatalArray = subset(attackFatalynArray,mar,feb);
-  console.log("Feb: " + febFatalArray);
   janFatalArray = subset(attackFatalynArray,feb,jan);
-  console.log("Jan: " + janFatalArray);
 
+  //counting how many fatal attacks there were per month of the selected year.
+  //counting how many fatal attacking occured throughout the whole year.
+  for(let a = 0; a<janFatalArray.length; a++){
+    if(janFatalArray[a] == "Y"){
+      janFatalities = janFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ab = 0; ab<febFatalArray.length; ab++){
+    if(febFatalArray[ab] == "Y"){
+      febFatalities = febFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ac = 0; ac<marFatalArray.length; ac++){
+    if(marFatalArray[ac] == "Y"){
+      marFatalities = marFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ad = 0; ad<aprFatalArray.length; ad++){
+    if(aprFatalArray[ad] == "Y"){
+      aprFatalities = aprFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ae = 0; ae<mayFatalArray.length; ae++){
+    if(mayFatalArray[ae] == "Y"){
+      mayFatalities = mayFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let af = 0; af<junFatalArray.length; af++){
+    if(junFatalArray[af] == "Y"){
+      junFatalities = junFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ag = 0; ag<julFatalArray.length; ag++){
+    if(julFatalArray[ag] == "Y"){
+      julFatalities = julFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ah = 0; ah<augFatalArray.length; ah++){
+    if(augFatalArray[ah] == "Y"){
+      augFatalities = augFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ai = 0; ai<sepFatalArray.length; ai++){
+    if(sepFatalArray[ai] == "Y"){
+      sepFatalities = sepFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let aj = 0; aj<octFatalArray.length; aj++){
+    if(octFatalArray[aj] == "Y"){
+      octFatalities = octFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
+  for(let ak = 0; ak<novFatalArray.length; ak++){
+    if(novFatalArray[ak] == "Y"){
+      novFatalities = novFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
 
-  console.log(decFatalArray.length);
-
-
-
-
-
+  for(let al = 0; al<decFatalArray.length; al++){
+    if(decFatalArray[al] == "Y"){
+      decFatalities = decFatalities + 1;
+      yearFatalities = yearFatalities + 1
+      }
+    }
 }
 
 function draw(){
-
-  let monthArrayVariable = [jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec];
-
-  //drawing the graph
+  //noLoop to prevent the draw function continuosly drawing over itself.
+  noLoop();
+  //assinging values to this array.
+  monthArrayVariable = [jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec];
+  //drawing the graph axis
   line(150,600,150,100);
   line(150,600,810,600);
-
-  //adding the graph values
+  //adding the graph values on the X axis
   while(monthLocation < 820){
     fill(0,200,200);
     for(let x = 0; x < monthArrayString.length; x++){
@@ -221,7 +263,7 @@ function draw(){
       monthLocation = monthLocation + 60;
     }
   }
-
+  //adding the graph values on the Y axis
   while(attackLocation > 150){
     fill(0,200,200);
     for(let y = 0; y < 26; y++){
@@ -233,9 +275,9 @@ function draw(){
       }
     }
     fill(random(255),random(255),random(255));
-
     //plotting the graph and connect the points with lines
     //change coordinates 0,0 to match coordinates 0,0 on the graph
+    //Push() and pop() contain the translation within these lines.
     push()
     translate(150,600); //point 0,0 on the graph
     fill(random(255),random(255),random(255));
@@ -252,23 +294,29 @@ function draw(){
         pointPos = pointPos + 60;
       }
     }
-    //console.log(squaresArray);
-    //fill(0,0,200,20);
-    //noStroke();
-    /*let mousePositionXJan = map(mouseX,0,-60,0,20);
-    let mousePositionYJan = map(mouseY,0,-60,0,20);
-    rect(mousePositionXJan,mousePositionYJan,-20,60)
-
-    //rect(pointPos,-500,60,500);
-    //loop()
-    //rect(0,-500,60,50);
-    fill(0,0,200,20);
+    //adding text to explain the data and the purpose of the visulisation
+    textSize(20);
     noStroke();
-    //noLoop();
-    //rect(0,-500,60,500);
-    if (mouseX <=0 && mouseX >= -500){ //&& mouseY <= 60 && mouseY >= 500){
-      rect(0,-500,60,500);
-    }
-    */
+    fill(0,100,200);
+    //the varibles change depending on the year entered by the user at the start.
+    text("In " + year + ", " + yearFatalities + " was the death count from shark attacks" ,0,60);
+    text("In comparision, an estimate of 100 million sharks are killed by humans a year , thats roughly 11,000 per hour", 0, 90);
+    text("this graphic  below shows the amount of attacks of humans in relation to the amount of sharks killed in " + year , 0, 120);
+    //both the number of attacks per year and number of sharks killed on average are scaled down
+    // so the are more manageable figures and are therefore easier to visulise.
+    let numberOfAttacksPerYear = (data.records.length/2)
+    let scaledDownSharkDeaths = (11000/10);
+    let scaledDownSharkAttacks = (data.records.length/10);
+    //cirles drawn, one representing the sharks killed each hour
+    fill(0,100,200,50);
+    ellipse(170,350,scaledDownSharkDeaths,scaledDownSharkDeaths);
+    fill(255,255,255);
+    //the other representing shark attacks occuring during chosen year.
+    ellipse(170,350,scaledDownSharkAttacks,scaledDownSharkAttacks);
+    fill(0,100,200);
+    text("The Blue circle represents sharks kills PER HOUR on average.", 350,320);
+    text("The white dot in the centre of the blue circle represents shark attacks IN ONE YEAR (" + year + ").", 350,350);
+    textSize(15);
+    text("REFRESH the page and enter a new year to view data from a different year", 0,600);
     pop()
  }
