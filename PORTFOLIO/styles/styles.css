@@ -1,0 +1,144 @@
+
+header{
+  margin: 0 0 0 0;
+  padding: 300px 0 0 0;
+
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Handlee', cursive;
+
+}
+
+h1{
+  font-size: 30px;
+  text-align: right;
+
+  font-family: 'Heebo', sans-serif;
+  background-color: white;
+  color: #f88379;
+}
+
+h2{
+
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Heebo', sans-serif;
+  background-color: #f88379;
+  color: white;
+}
+
+h3{
+  padding: 200px 0 0 0;
+  font-size: 40px;
+  text-align: center;
+
+  font-family: 'Heebo', sans-serif;
+  background-color: white;
+  color: #f88379;
+}
+
+h4{
+  margin: 0 0 0 0;
+  padding: 300px 0 0 300px;
+  font-size: 30px;
+  text-align: left;
+
+  font-family: 'Handlee', cursive;
+  background-color: none;
+  color: Black;
+  }
+
+p{
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  margin-top: 20px;
+  font-size: 30px;
+
+  text-align: center;
+  font-family: 'Handlee', cursive;
+  background-color: none;
+  color: black;
+}
+
+
+nav{
+  font-size: 20px;
+  font-family: 'Heebo', sans-serif;
+}
+
+.navbar{
+  background-color: white ;
+}
+
+.nav-link{
+  background-color: white;
+  color: #f88379;
+}
+
+.nav-link:hover{
+  background-color: #f88379;
+  color: white;
+}
+
+.backgroundWhite {
+    background-color: none;
+    height: 100px;
+}
+
+.backgroundPink{
+  background-color: #f88379;
+  height: 100px;
+}
+
+/*.bg-primary{
+  background-color: #f88379;*/
+
+
+footer{
+ background-color: grey;
+ /*width: 100vh;*/
+}
+
+
+
+/* No media query since this is the default in Bootstrap*/
+@media (min-width: 320px) {
+  h1, h2{
+    font-size: 50px;
+  }
+
+  h1{
+    padding-top: 50px;
+  }
+
+  }
+
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+  h1,h2{
+    font-size: 75px;
+  }
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+  h1,h2{
+    font-size:100px;
+  }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+  h1,h2{
+    font-size:150px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+  h1,h2{
+    /*text-align: center;*/
+    font-size:200px;
+  }
+}
